@@ -38,12 +38,14 @@ namespace GhostToGitHubPagesConverter
                                      .Select(t => t.name)
                                      .ToArray();
 
+                        var published = post.status == "published" && post.visibility == "public";
+
                         // see https://help.github.com/articles/configuring-jekyll/#front-matter-is-required and https://jekyllrb.com/docs/front-matter/
                         string frontMatter = $@"---
 permalink: /{post.slug}
 title: {post.title}
 date: {post.created_at}
-published: {post.status == "published" && post.visibility == "public"}
+published: {published.ToString().ToLower()}
 tags: {string.Join(" ", tags)}
 ---";
 
