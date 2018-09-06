@@ -9,11 +9,11 @@ This is a dotnet core console application, so you'll need the latest dotnet core
 
 Build with dotnet:
 
-   dotnet build
+    dotnet build
 
 Use dotnet publish to create an executable:
 
-   dotnet publish -r win10-x64
+    dotnet publish -r win10-x64
 
 ## Run
 
