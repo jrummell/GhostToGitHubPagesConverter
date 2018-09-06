@@ -20,7 +20,8 @@ namespace GhostToGitHubPagesConverter
 
                 foreach (Db db in export.db)
                 {
-                    var directory = new DirectoryInfo(db.meta.exported_on.ToString());
+                    var postsPath = Path.Combine(db.meta.exported_on.ToString(), "_posts");
+                    var directory = new DirectoryInfo(postsPath);
                     if (!directory.Exists)
                     {
                         directory.Create();
@@ -28,8 +29,6 @@ namespace GhostToGitHubPagesConverter
 
                     foreach (Post post in db.data.posts)
                     {
-                        string postFile = Path.Combine(directory.FullName, post.slug + ".md");
-
                         var tagIds = db.data.posts_tags.Where(x => x.post_id == post.id)
                                        .Select(x => x.tag_id)
                                        .ToArray();
@@ -43,16 +42,18 @@ namespace GhostToGitHubPagesConverter
                         // see https://help.github.com/articles/configuring-jekyll/#front-matter-is-required and https://jekyllrb.com/docs/front-matter/
                         string frontMatter = $@"---
 layout: post
-title: {post.title}
+title: {post.title?.Replace(":", " -")}
 permalink: /{post.slug}
-date: {post.created_at}
+date: {post.published_at ?? post.created_at}
 published: {published.ToString().ToLower()}
 tags: {string.Join(" ", tags)}
 ---";
 
                         string postContent = frontMatter + Environment.NewLine + Environment.NewLine + post.markdown;
 
-                        File.WriteAllText(postFile, postContent);
+                        string fileName = (post.published_at ?? post.created_at).Split(" ").First() + "-" + post.slug + ".md";
+                        string fullPath = Path.Combine(directory.FullName, fileName);
+                        File.WriteAllText(fullPath, postContent);
                     }
                 }
             }
