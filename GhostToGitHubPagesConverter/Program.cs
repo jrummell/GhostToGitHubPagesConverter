@@ -42,8 +42,9 @@ namespace GhostToGitHubPagesConverter
 
                         // see https://help.github.com/articles/configuring-jekyll/#front-matter-is-required and https://jekyllrb.com/docs/front-matter/
                         string frontMatter = $@"---
-permalink: /{post.slug}
+layout: post
 title: {post.title}
+permalink: /{post.slug}
 date: {post.created_at}
 published: {published.ToString().ToLower()}
 tags: {string.Join(" ", tags)}
