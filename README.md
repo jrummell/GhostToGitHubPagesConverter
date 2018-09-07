@@ -18,3 +18,7 @@ Use dotnet publish to create an executable:
 ## Run
 
     GhostToGitHubPagesConverter.exe path-to-your-ghost-export.json
+    
+## Download
+
+Get the latest bits from the [Releases](https://github.com/jrummell/GhostToGitHubPagesConverter/releases) tab.
