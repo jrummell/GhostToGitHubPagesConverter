@@ -87,7 +87,7 @@ title: {post.title?.Replace(":", " -")}
 permalink: /{post.slug}
 date: {post.published_at ?? post.created_at}
 published: {published.ToString().ToLower()}
-tags: {string.Join(" ", tags)}
+tags: [{string.Join(", ", tags)}]
 ---";
             return frontMatter;
         }
