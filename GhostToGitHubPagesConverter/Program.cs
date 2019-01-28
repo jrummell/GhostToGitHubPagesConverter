@@ -41,9 +41,10 @@ namespace GhostToGitHubPagesConverter
                         string[] tags = GetTags(db, post);
                         string frontMatter = GetFrontMatter(post, tags);
                         string postContent = GetContent(post, frontMatter);
+                        long postTicks = long.Parse((post.published_at ?? post.created_at).Split(" ").First());
+                        string dateRef = new DateTime(1970,1,1).AddMilliseconds(postTicks).ToString("yyyy-MM-dd");
 
-                        string fileName = (post.published_at ?? post.created_at).Split(" ")
-                                                                                .First() + "-" + post.slug + ".md";
+                        string fileName = dateRef + "-" + post.slug + ".md";
                         string fullPath = Path.Combine(postDirectory.FullName, fileName);
                         File.WriteAllText(fullPath, postContent);
                     }
