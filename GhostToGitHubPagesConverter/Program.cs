@@ -52,6 +52,8 @@ namespace GhostToGitHubPagesConverter
                         else{
                             long postTicks = long.Parse(publishedDate);
                             dateRef = new DateTime(1970,1,1).AddMilliseconds(postTicks).ToString("yyyy-MM-dd");
+                            post.published_at = dateRef;
+                            post.created_at = dateRef;
                         }
 
                         string fileName = dateRef + "-" + post.slug + ".md";
