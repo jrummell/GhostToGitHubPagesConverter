@@ -41,22 +41,9 @@ namespace GhostToGitHubPagesConverter
                         string[] tags = GetTags(db, post);
                         string frontMatter = GetFrontMatter(post, tags);
                         string postContent = GetContent(post, frontMatter);
-                        string publishedDate = (post.published_at ?? post.created_at).Split(" ").First();
+                        string realDate = GetPublishedDate(post);
 
-                        string dateRef = string.Empty;
-                        DateTime realDate;
-                        if(DateTime.TryParse(publishedDate, out realDate))
-                        {
-                            dateRef = publishedDate;
-                        }
-                        else{
-                            long postTicks = long.Parse(publishedDate);
-                            dateRef = new DateTime(1970,1,1).AddMilliseconds(postTicks).ToString("yyyy-MM-dd");
-                            post.published_at = dateRef;
-                            post.created_at = dateRef;
-                        }
-
-                        string fileName = dateRef + "-" + post.slug + ".md";
+                        string fileName = realDate + "-" + post.slug + ".md";
 
                         string fullPath = Path.Combine(postDirectory.FullName, fileName);
                         File.WriteAllText(fullPath, postContent);
@@ -99,7 +86,7 @@ namespace GhostToGitHubPagesConverter
 layout: {layout}
 title: {post.title?.Replace(":", " -")}
 permalink: /{post.slug}
-date: {post.published_at ?? post.created_at}
+date: {GetPublishedDate(post)}
 published: {published.ToString().ToLower()}
 tags: [{string.Join(", ", tags)}]
 ---";
@@ -116,6 +103,22 @@ tags: [{string.Join(", ", tags)}]
                          .Select(t => t.name)
                          .ToArray();
             return tags;
+        }
+
+        private static string GetPublishedDate(Post post){
+            DateTime realDate;
+            string pubDate = string.Empty;
+            string publishedDate = (post.published_at ?? post.created_at).Split(" ").First();
+
+            if(DateTime.TryParse(publishedDate, out realDate))
+            {
+                pubDate = publishedDate;
+            }
+            else{
+                long postTicks = long.Parse(publishedDate);
+                pubDate = new DateTime(1970,1,1).AddMilliseconds(postTicks).ToString("yyyy-MM-dd");
+            }
+            return pubDate;
         }
     }
 }
