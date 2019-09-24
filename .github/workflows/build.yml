@@ -24,4 +24,4 @@ jobs:
     - name: Build self-contained for ${{ matrix.runtime }}
       run: |
         cd GhostToGitHubPagesConverter
-        dotnet publish --configuration Release /p:PublishSingleFile=true --runtime ${{ matrix.runtime }}
+        dotnet publish --configuration Release --self-contained --runtime ${{ matrix.runtime }}
