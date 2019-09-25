@@ -17,6 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
@@ -30,13 +31,20 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Publish artifacts
-          path: artifacts
+          path: GhostToGitHubPagesConverter/artifacts
 
   package:
     name: package
     runs-on: windows-2019
 
     steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.0.100
+
       - name: Package
         run: |
           cd GhostToGitHubPagesConverter
@@ -45,4 +53,4 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Publish artifacts
-          path: artifacts
+          path: GhostToGitHubPagesConverter/artifacts
