@@ -6,7 +6,7 @@ Converts a [Ghost](https://ghost.org/) 0.x [json export](https://help.ghost.org/
 
 ## Requirements
 
-This is a dotnet core console application, so you'll need the latest dotnet core [3.x sdk](https://www.microsoft.com/net/download).
+This is a dotnet core console application, so you'll need the latest dotnet core [3.x sdk](https://www.microsoft.com/net/download) to build. Neiter the sdk or runtime is required to run the app.
 
 ## Build
 
