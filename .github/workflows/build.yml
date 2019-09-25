@@ -32,7 +32,7 @@ jobs:
         md artifacts
         copy .\GhostToGitHubPagesConverter\bin\Release\*.nupkg
         .\GhostToGitHubPagesConverter\bin\Release\netcoreapp3.0\${{ matrix.runtime }}\publish\*.exe .\${{ matrix.runtime }}
-        shell: pwsh
+      shell: pwsh
 
     - uses: actions/upload-artifact@master
       with:
