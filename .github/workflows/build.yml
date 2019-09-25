@@ -34,7 +34,7 @@ jobs:
           path: GhostToGitHubPagesConverter/artifacts
 
   package:
-    name: package
+    name: Package
     runs-on: windows-2019
 
     steps:
@@ -45,7 +45,12 @@ jobs:
         with:
           dotnet-version: 3.0.100
 
-      - name: Package
+      - name: Build
+        run: |
+          cd GhostToGitHubPagesConverter
+          dotnet publish --configuration Release
+
+      - name: Pack
         run: |
           cd GhostToGitHubPagesConverter
           dotnet pack --configuration Release --output artifacts
