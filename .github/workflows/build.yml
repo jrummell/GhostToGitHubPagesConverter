@@ -27,14 +27,14 @@ jobs:
         cd GhostToGitHubPagesConverter
         dotnet publish --configuration Release --self-contained --runtime ${{ matrix.runtime }}
 
-     - name: Package artifacts
-       run: | 
-         md artifacts
-         copy .\GhostToGitHubPagesConverter\bin\Release\*.nupkg
-         Compress-Archive .\GhostToGitHubPagesConverter\bin\Release\netcoreapp3.0\win-x64\publish\GhostToGitHubPagesConverter.exe -DestinationPath .\artifacts\GhostToGitHubPagesConverter
-       shell: pwsh
+    - name: Package artifacts
+      run: | 
+        md artifacts
+        copy .\GhostToGitHubPagesConverter\bin\Release\*.nupkg
+        Compress-Archive .\GhostToGitHubPagesConverter\bin\Release\netcoreapp3.0\win-x64\publish\GhostToGitHubPagesConverter.exe -DestinationPath .\artifacts\GhostToGitHubPagesConverter
+        shell: pwsh
 
-     - uses: actions/upload-artifact@master
-       with:
+    - uses: actions/upload-artifact@master
+      with:
         name: publish artifacts
         path: artifacts
