@@ -26,7 +26,7 @@ jobs:
       run: |
         cd GhostToGitHubPagesConverter
         dotnet publish --configuration Release --self-contained --runtime ${{ matrix.runtime }}
-     
+
      - name: Package artifacts
        run: | 
          md artifacts
