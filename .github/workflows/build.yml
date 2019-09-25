@@ -30,8 +30,8 @@ jobs:
     - name: Copy artifacts
       run: | 
         md artifacts
-        copy .\GhostToGitHubPagesConverter\bin\Release\GhostToGitHubPagesConverter.nupkg
-        .\GhostToGitHubPagesConverter\bin\Release\netcoreapp3.0\${{ matrix.runtime }}\publish\GhostToGitHubPagesConverter.exe .\${{ matrix.runtime }}
+        copy .\bin\Release\GhostToGitHubPagesConverter.nupkg
+        .\bin\Release\netcoreapp3.0\${{ matrix.runtime }}\publish\GhostToGitHubPagesConverter.exe .\${{ matrix.runtime }}
       shell: pwsh
 
     - uses: actions/upload-artifact@master
