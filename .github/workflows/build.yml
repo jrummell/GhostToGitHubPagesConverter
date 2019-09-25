@@ -28,11 +28,12 @@ jobs:
         dotnet publish --configuration Release --self-contained --runtime ${{ matrix.runtime }}
 
     - name: Copy artifacts
-      run: | 
+      run: |
+        cd .\GhostToGitHubPagesConverter\bin\Release
         md artifacts
-        dir
-        copy .\GhostToGitHubPagesConverter\bin\Release\GhostToGitHubPagesConverter.nupkg
-        .\GhostToGitHubPagesConverter\bin\Release\netcoreapp3.0\${{ matrix.runtime }}\publish\GhostToGitHubPagesConverter.exe .\${{ matrix.runtime }}
+        copy *.nupkg .\artifacts
+        md artifacts\${{ matrix.runtime }}
+        copy .\netcoreapp3.0\${{ matrix.runtime }}\publish\*.exe .\${{ matrix.runtime }}
       shell: pwsh
 
     - uses: actions/upload-artifact@master
