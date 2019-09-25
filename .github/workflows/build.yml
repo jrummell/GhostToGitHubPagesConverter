@@ -31,8 +31,9 @@ jobs:
        run: | 
          md artifacts
          copy .\GhostToGitHubPagesConverter\bin\Release\*.nupkg
-         Compress-Archive .\bin\Release\netcoreapp3.0\win-x64\publish\GhostToGitHubPagesConverter.exe -DestinationPath .\artifacts\GhostToGitHubPagesConverter
+         Compress-Archive .\GhostToGitHubPagesConverter\bin\Release\netcoreapp3.0\win-x64\publish\GhostToGitHubPagesConverter.exe -DestinationPath .\artifacts\GhostToGitHubPagesConverter
        shell: pwsh
+
      - uses: actions/upload-artifact@master
        with:
         name: publish artifacts
