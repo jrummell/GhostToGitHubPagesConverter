@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - master # Push events on master branch
+      - "releases/*" # Push events to branches matching refs/heads/releases/*
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        runtime: [win-x64, linux-x64, osx-x64]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.0.100
+
+      - name: Build self-contained for ${{ matrix.runtime }}
+        run: |
+          cd GhostToGitHubPagesConverter
+          dotnet publish --configuration Release --self-contained --runtime ${{ matrix.runtime }} --output artifacts\${{ matrix.runtime }}
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: Publish artifacts
+          path: GhostToGitHubPagesConverter/artifacts
+
+  package:
+    name: Package
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.0.100
+
+      - name: Build
+        run: |
+          cd GhostToGitHubPagesConverter
+          dotnet publish --configuration Release
+
+      - name: Pack
+        run: |
+          cd GhostToGitHubPagesConverter
+          dotnet pack --configuration Release --output artifacts
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: Publish artifacts
+          path: GhostToGitHubPagesConverter/artifacts

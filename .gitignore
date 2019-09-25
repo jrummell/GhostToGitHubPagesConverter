@@ -260,7 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 
-1504470101959/
 .vscode/
 .sonarqube/
 *.json
