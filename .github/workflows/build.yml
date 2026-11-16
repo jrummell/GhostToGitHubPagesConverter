@@ -7,11 +7,19 @@ on:
       - master
       - "releases/*"
       - "feature/*"
+  pull_request:
+    branches: 
+      - master
+      - "releases/*"
+      - "feature/*"
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runtime: [win-x64, linux-x64, osx-x64]
 
     steps:
       - uses: actions/checkout@v7
