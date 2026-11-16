@@ -7,6 +7,11 @@ on:
       - master
       - "releases/*"
       - "feature/*"
+  pull_request:
+    branches: 
+      - master
+      - "releases/*"
+      - "feature/*"
 
 jobs:
   build:
