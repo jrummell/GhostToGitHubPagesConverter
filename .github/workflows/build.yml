@@ -24,7 +24,7 @@ jobs:
       - name: Build self-contained for ${{ matrix.runtime }}
         run: |
           cd GhostToGitHubPagesConverter
-          dotnet publish --configuration Release --self-contained --runtime ${{ matrix.runtime }} --output artifacts\${{ matrix.runtime }}
+          dotnet publish --configuration Release --self-contained --runtime ${{ matrix.runtime }} --output artifacts/${{ matrix.runtime }}
 
       - uses: actions/upload-artifact@master
         with:
